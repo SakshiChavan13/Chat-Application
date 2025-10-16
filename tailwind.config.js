@@ -13,14 +13,19 @@ export default {
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+            
         },
     },
 
-    plugins: [forms, require("daisyui")],
+    plugins: [forms, require('@tailwindcss/forms'), require('daisyui')],
 
+
+  safelist: [
+    'online', 
+    'offline',
+    'avatar', 
+    'chat-image' // optional if you use it
+  ],
     daisyui :{
         themes: true,
         darkTheme : "dark",
