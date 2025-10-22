@@ -16,8 +16,7 @@ const ChatLayout = ({ children }) => {
     const [onlineUsers, setOnlineUsers] = useState([]);
 
     const isUserOnline = (userId) => onlineUsers[userId];
-    console.log("conversations", conversations);
-    console.log("selectedConversation", selectedConversation);
+    
 
     const onSearch = (e) => {
         const search = e.target.value.toLowerCase();
@@ -142,8 +141,12 @@ const ChatLayout = ({ children }) => {
                 </div>
 
             </div>
+             <div className="flex-1 flex flex-col overflow-hidden bg-slate-900">
+                {children}
+            </div>
 
               </div>
+              
         
         
         </>
