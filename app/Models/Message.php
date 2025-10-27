@@ -17,6 +17,7 @@ class Message extends Model
         'group_id',
         'receiver_id',
         'conversation_id',
+        'message',
     ];
 
     public function sender()
