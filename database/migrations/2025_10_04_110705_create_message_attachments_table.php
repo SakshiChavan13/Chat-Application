@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('message_id')->constrained('messages')->onDelete('cascade');
             $table->string('name', 255);
             $table->string('path', 1024);
-            $table->string('mimi', 255);
+            $table->string('mime', 255);
             $table->integer('size');
             $table->timestamps();
         });

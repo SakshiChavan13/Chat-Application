@@ -2,7 +2,7 @@ import {
     PaperClipIcon,
     ArrowDownTrayIcon,
     PlayCircleIcon,
-} from "@headlessui/react";
+} from "@heroicons/react/24/solid";
 
 import { isAudio, isImage, isPDF, isPreviewable, isVideo } from "../../helpers";
 

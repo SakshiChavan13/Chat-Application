@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import React from "react";
 import UserAvatar from "./UserAvatar";
 import { formatMessageDateLong } from "@/helpers";
+import MessageAttachments from "./MessageAttachments";
 
 
 const MessageItem = ({ message, attachmentClick }) => {

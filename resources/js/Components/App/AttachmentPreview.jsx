@@ -1,5 +1,5 @@
 import React from "react";
-import { PaperClipIcon } from "@headlessui/react";
+import { PaperClipIcon } from "@heroicons/react/24/solid";
 import { formatBytes, isPDF, isPreviewable } from "@/helpers";
 
 const AttachmentPreview = ({ file }) => {
@@ -20,3 +20,5 @@ const AttachmentPreview = ({ file }) => {
         </div>
     );
 };
+
+export default AttachmentPreview;

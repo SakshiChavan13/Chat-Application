@@ -1,3 +1,4 @@
+import AttachmentPreviewModal from "@/Components/App/AttachmentPreviewModal";
 import ConversationHeader from "@/Components/App/ConversationHeader";
 import MessageInput from "@/Components/App/MessageInput";
 import MessageItem from "@/Components/App/MessageItem";
@@ -177,6 +178,8 @@ function Home({ selectedConversation = null, messages = null }) {
                                     <MessageItem
                                         key={`${message.id}-${message.created_at}`}
                                         message={message}
+                                        attachmentClick={onAttachmentClick}
+
                                     />
                                 ))}
                             </div>
