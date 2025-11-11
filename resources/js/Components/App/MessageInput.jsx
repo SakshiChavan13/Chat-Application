@@ -17,12 +17,14 @@ import CustomAudioPlayer from "./CustomAudioPlayer";
 import AudioRecorder from "./AudioRecorder";
 
 
+
 const MessageInput = ({ conversation = null }) => {
     const [newMessage, setNewMessage] = useState("");
     const [inputErrorMessage, setInputErrorMessage] = useState("");
     const [messageSending, setMessageSending] = useState(false);
     const [chosenFiles, setChosenFiles] = useState([]);
     const [onUploadProgress, setUploadProgress] = useState(0);
+    
 
     const onFileChange = (ev) => {
         const files = ev.target.files;
@@ -42,6 +44,7 @@ const MessageInput = ({ conversation = null }) => {
     };
 
     const onSendClick = () => {
+      
         if (messageSending) {
             return;
         }

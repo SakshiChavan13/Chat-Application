@@ -106,7 +106,7 @@ class MessageController extends Controller
         }
 
         if ($groupId) {
-            Group::updateGroupWithMessage($groupId,$message);
+            Group::updateGroupWithMessage($groupId, $message);
         }
 
         SocketMessage::dispatch($message);
@@ -114,13 +114,27 @@ class MessageController extends Controller
         return new MessageResource($message);
     }
 
-    public function destroy(Message $message) {
-        if($message->sender_id !== auth()->id() ){
+    public function destroy(Message $message)
+    {
+        if ($message->sender_id !== auth()->id()) {
             return response()->json(['message' => 'Forbidden'], 403);
         }
-
+        $group = null;
+        $conversation = null;
+        if ($message->group_id) {
+            $group = Group::where('last_message_id', $message->id)->first();
+        } else {
+            $conversation = Conversation::where('last_message_id', $message->id)->first();
+        }
         $message->delete(); //delete attachments through observer
+        if ($group) {
+            $group = Group::find($group->id);
+            $lastMessage = $group->lastMessage;
+        } else if ($conversation) {
+            $conversation = Conversation::find($conversation->id);
+            $lastMessage = $conversation->lastMessage;
+        }
 
-        return response('', 204);
+        return response()->json(['message' => $lastMessage ? new MessageResource($lastMessage) : null]);
     }
 }

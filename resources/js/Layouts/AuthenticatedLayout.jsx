@@ -1,3 +1,5 @@
+import NewMessageNotification from "@/Components/App/NewMessageNotification";
+import Toast from "@/Components/App/Toast";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
@@ -74,7 +76,8 @@ export default function AuthenticatedLayout({ header, children }) {
     }, [conversations]);
 
     return (
-        <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 flex flex-col h-screen">
+        <>
+         <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 flex flex-col h-screen">
             <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -234,5 +237,10 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {children}
         </div>
+        <Toast/>
+        <NewMessageNotification />
+
+        </>
+       
     );
 }

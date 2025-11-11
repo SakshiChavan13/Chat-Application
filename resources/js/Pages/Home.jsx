@@ -17,7 +17,7 @@ function Home({ selectedConversation = null, messages = null }) {
     const loadMoreIntersect = useRef(null);
     const [showAttachmentPreview, setShowAttachmentPreview] = useState(false);
     const [previewAttachment, setPreviewAttachment] = useState({});
-    
+
     const { on } = useEventBus();
 
     const messageCreated = (message) => {
@@ -40,6 +40,29 @@ function Home({ selectedConversation = null, messages = null }) {
             selectedConversation.id == message.receiver_id
         ) {
             setLocalMessages((prevMessages) => [...prevMessages, message]);
+        }
+    };
+
+    const messageDeleted = ({message}) => {
+        if (
+            selectedConversation &&
+            selectedConversation.is_group &&
+            selectedConversation.id == message.group_id
+        ) {
+            setLocalMessages((prevMessages) => {
+                return prevMessages.filter((m) => m.id !== message.id);
+            });
+        }
+
+        if (
+            (selectedConversation &&
+                selectedConversation.is_user &&
+                selectedConversation.id == message.sender_id) ||
+            selectedConversation.id == message.receiver_id
+        ) {
+            setLocalMessages((prevMessages) => {
+                return prevMessages.filter((m) => m.id !== message.id);
+            });
         }
     };
 
@@ -75,13 +98,12 @@ function Home({ selectedConversation = null, messages = null }) {
                     return unique;
                 });
             });
-    }, [localMessages,noMoreMessages]);
+    }, [localMessages, noMoreMessages]);
 
     const onAttachmentClick = (attachments, ind) => {
         setPreviewAttachment({
             attachments,
             ind,
-
         });
 
         setShowAttachmentPreview(true);
@@ -95,12 +117,14 @@ function Home({ selectedConversation = null, messages = null }) {
             }
         }, 10);
         const offCreated = on("message.created", messageCreated);
+        const offDeleted = on("message.deleted", messageDeleted);
 
         setScrollFromBottom(0);
         setNoMoreMessages(false);
-        
+
         return () => {
             offCreated();
+            offDeleted();
         };
     }, [selectedConversation]);
 
@@ -179,7 +203,6 @@ function Home({ selectedConversation = null, messages = null }) {
                                         key={`${message.id}-${message.created_at}`}
                                         message={message}
                                         attachmentClick={onAttachmentClick}
-
                                     />
                                 ))}
                             </div>
@@ -195,7 +218,7 @@ function Home({ selectedConversation = null, messages = null }) {
                     index={previewAttachment.ind}
                     show={showAttachmentPreview}
                     onClose={() => setShowAttachmentPreview(false)}
-                    />
+                />
             )}
         </>
     );

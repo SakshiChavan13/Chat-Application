@@ -31,6 +31,11 @@ class Group extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    public function lastMessage()
+    {
+        return $this->belongsTo(Message::class, 'last_message_id');
+    }
+
     public static function getGroupsForUser(User $user)
     {
 
